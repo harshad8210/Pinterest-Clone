@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-grp">
+                    <legend class="border-bottom mb-4 mt-4">New Board</legend>
+                    <div class="form-grp mt-3">
+                        {{ form.name.label(class="form-control-label")}}
+                        {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.name(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+
+                    <p class="mt-4">Make board :</p>
+                    <input type="radio" class="btn-check" name="options-board" id="public" value="0"
+                           autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="public">Public</label>
+
+                    <input type="radio" class="btn-check" name="options-board" id="private" value="1"
+                           autocomplete="off">
+                    <label class="btn btn-outline-danger" for="private">Private</label>
+
+
+                </fieldset>
+                <hr>
+                <div class="form-group mt-4">
+                    {{ form.create(class="btn btn-outline-danger") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="center-block">
+    <!--saved pins---------------------------------------------->
+    <h4 class="mt-5">Unorganized Pins</h4>
+    <hr>
+    <br>
+    {% for pin in user_save_pins %}
+    <div class="pin_container">
+        <div class="box">
+            <div class="grid-item grid-item--height3">
+                <img src="{{ url_for('static',filename='pin_img/' + pin.save_pins.pin_pic) }} ">
+                <p>{{ pin.save_pins.title }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="center-block">
+    <br>
+    <div>
+        <h1 class="text-center">Following</h1>
+    </div>
+    <br>
+    <div class="float-start">
+        <h2>People you follow</h2>
+    </div>
+    <br><br>
+    <hr>
+    <div class="container">
+        <div class="row mb-1">
+            <div class="col-md-4">
+                <p class="fs-3">User Name</p>
+            </div>
+            <div class="col-md-4">
+                <p class="fs-3">User Email</p>
+            </div>
+            <div class="col-md-4">
+                <p class="fs-3">Profile</p>
+            </div>
+            <hr>
+        </div>
+        {% for following in followings %}
+        <div class="row mb-1">
+            <div class="col-md-4">
+                <p>{{ following.user.username }}</p>
+            </div>
+            <div class="col-md-4">
+                <p>{{ following.user.email }}</p>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('users.user_profile',username=following.user.username) }}">View Profile</a>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock content %}

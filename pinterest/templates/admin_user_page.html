@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="raw">
+        <div class="profile_pic d-flex justify-content-center mt-5 mb-5">
+            <div class="center-block text-center">
+                <img class="rounded-circle" src="{{ url_for('static', filename='profile_img/' + user.profile_pic) }}">
+                <h2 class="account-heading ">{{ user.username }}</h2>
+                <p class="text-secondary ">{{ user.email }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="center-block">
+        <br>
+        <div class="float-start">
+            <h4>Created Boards by {{user.username}}</h4>
+        </div>
+        <br>
+        <hr>
+        {% for board in boards %}
+        <div class="pin_container">
+            <div class="box">
+                <div class="bg-light rounded border border-danger m-3">
+                    <a class="text-danger text-decoration-none p-1"><h2 class="text-center">{{ board.name
+                        }}</h2></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="center-block">
+        <!--User's pins------------------------------------------------------->
+        <br>
+        <div class="float-start">
+            <h4>Created Pins by {{user.username}}</h4>
+        </div>
+        <br>
+        <hr>
+        {% for pin in pins %}
+        <div class="pin_container">
+            <div class="box">
+                <img src="{{ url_for('static',filename='pin_img/' + pin.pin_pic) }} ">
+                <a class="text-danger text-decoration-none">{{ pin.title }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

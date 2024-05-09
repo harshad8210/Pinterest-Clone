@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="box col-md-6">
+            <img src="{{ url_for('static',filename='pin_img/' + pin.pin_pic) }}" width="100%">
+            <p>Date Posted :- {{ pin.date_posted.strftime('%Y-%m-%d') }}</p>
+        </div>
+        <div class="col-md-6">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-grp">
+                    <legend class="border-bottom mb-4">Update Post</legend>
+                    <div class="form-grp mt-3">
+                        {{ form.title.label(class="form-control-label")}}
+                        {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.title(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.content.label(class="form-control-label")}}
+                        {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.content(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+
+                    <label class="mt-5">Pin Tags:</label>
+                    <select id="multipleSelect" multiple name="img_tag" placeholder="Select Tags for pin"
+                            data-search="true"
+                            data-silent-initial-value-set="true">
+                        {% for tag in tags %}
+                        {% if tag.id in selected_pin_tag %}
+                        <option value="{{tag.id}}" selected>{{tag.name}}</option>
+                        {% else %}
+                        <option value="{{tag.id}}">{{tag.name}}</option>
+                        {% endif %}
+                        {% endfor %}
+
+                    </select>
+                    <br>
+                    <label class="mt-5">Make Pin :</label>
+                    <input type="radio" class="btn-check" name="options-pin-update" id="public" value="0"
+                           autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="public">Public</label>
+
+                    <input type="radio" class="btn-check" name="options-pin-update" id="private" value="1"
+                           autocomplete="off">
+                    <label class="btn btn-outline-danger" for="private">Private</label>
+
+                </fieldset>
+                <div class="form-group mt-5 text-center">
+                    <hr>
+                    {{ form.update(class="btn btn-outline-secondary") }}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#DeletePin">
+                        Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="DeletePin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="DeletePinLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeletePinLabel">Delete Pin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure...You want to delete pin?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{ url_for('pins.delete_pin',pin_id=pin.id)}}" method="post">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

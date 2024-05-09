@@ -1,0 +1,29 @@
+.pin_container {
+    width: 450px;
+    float: left;
+}
+
+.box {
+    width: 450px;
+    padding: 5px;
+    background-color: white;
+    margin-bottom: 10px;
+    break-inside: avoid;
+    margin-left: 15px;
+}
+
+.box img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* CSS for profile pic */
+.profile_pic img{
+    clip-path: circle();
+    width: 150px;
+    height: 150px;
+}
+
+/*comments css*/
+.link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }

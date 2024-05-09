@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-grp">
+                    <legend class="border-bottom mb-4 mt-4 text-danger">Create Pin</legend>
+                    <div class="form-grp mt-3">
+                        {{ form.title.label(class="form-control-label")}}
+                        {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.title(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.content.label(class="form-control-label")}}
+                        {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.content(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.post_img.label() }} <br>
+                        {{ form.post_img(class="form-control-label") }}
+                        {% if form.post_img.errors %}
+                        {% for error in form.post_img.errors %}
+                        <br> <span class="text-danger">{{error}}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <label class="mt-5">Pin Tags:</label>
+                    <select id="multipleSelect" multiple name="img_tag" placeholder="Select Tags for pin" data-search="true"
+                            data-silent-initial-value-set="true">
+                        {% for tag in tags %}
+                        {% for i in all_tags %}
+                            {% if i.id==tag %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label class="mt-5">Make Pin :</label>
+                    <input type="radio" class="btn-check" name="options-pin" id="public" value="0"
+                           autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="public">Public</label>
+
+                    <input type="radio" class="btn-check" name="options-pin" id="private" value="1"
+                           autocomplete="off">
+                    <label class="btn btn-outline-danger" for="private">Private</label>
+
+                </fieldset>
+                <br>
+                <hr>
+                <div class="form-group mt-4">
+                    {{ form.post(class="btn btn-outline-danger") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

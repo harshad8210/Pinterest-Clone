@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="raw">
+        <div class="content-section col-md-8 mx-auto">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-grp">
+                    <legend class="border-bottom mb-4 mt-4">Join Today</legend>
+                    <div class="form-grp mt-3">
+                        {{ form.username.label(class="form-control-label")}}
+                        {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.username(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.email.label(class="form-control-label")}}
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.email(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.password.label(class="form-control-label")}}
+                        {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.password(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-grp mt-3">
+                        {{ form.confirm_password.label(class="form-control-label")}}
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+
+                    <label class="mt-4">Your Interests:</label>
+                    <select id="multipleSelect" multiple name="interest" placeholder="Select Tags for pin"
+                            data-search="true"
+                            data-silent-initial-value-set="true">
+                        {% for tag in tags %}
+                        <option value="{{tag.id}}">{{tag.name}}</option>
+                        {% endfor %}
+                    </select>
+
+                </fieldset>
+                <div class="form-grp mt-4">
+                    {{ form.submit(class="btn btn-outline-danger")}}
+                </div>
+            </form>
+        </div>
+        <div class="border-top mt-3 col-md-8 mx-auto">
+            <small class="text-muted">
+                Already Have An Account?... <a href=" {{ url_for('users.login_page')}} " class="text-danger">Log in</a>
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock content %}

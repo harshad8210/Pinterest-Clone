@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-grp">
+                    <legend class="border-bottom mb-4 mt-4">Edit Board</legend>
+                    <div class="form-grp mt-3">
+                        {{ form.name.label(class="form-control-label")}}
+                        {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor%}
+                        </div>
+                        {% else %}
+                        {{ form.name(class="form-control form-control-lg")}}
+                        {% endif %}
+                    </div>
+                    <p class="mt-4">Make board :</p>
+                    <input type="radio" class="btn-check" name="options-board-e" id="public" value="0"
+                           autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="public">Public</label>
+
+                    <input type="radio" class="btn-check" name="options-board-e" id="private" value="1"
+                           autocomplete="off">
+                    <label class="btn btn-outline-danger" for="private">Private</label>
+
+                </fieldset>
+                <br>
+                <hr>
+                <div class="form-group mt-4">
+                    {{ form.create(class="btn btn-outline-danger") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
